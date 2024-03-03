@@ -1,16 +1,26 @@
 import React from "react";
+import { POSTER_IMG_BASE_URL, POSTER_IMG_PARAMETERS } from "../utils/constants";
 
-const BookCard = () => {
+const BookCard = ({ bookObj, key }) => {
+  if (!bookObj) return;
+  const { title, authors } = bookObj?.volumeInfo;
+  const { smallThumbnail, thumbnail } = bookObj?.volumeInfo?.imageLinks || {};
+  const allauthors = authors.join(", ");
+
   return (
-    <div className="border border-black inline-block py-3 px-5 rounded-md hover:shadow-2xl transition-all duration-300">
+    <div className="w-52 border-black bg-gray-200 inline-block pb-2 pt-4 px-3 rounded-md hover:shadow-2xl transition-all duration-300">
       <img
-        className="w-44"
-        src="https://books.google.com/books/content?id=r2yCRUxo0EYC&printsec=frontcover&img=1&zoom=2&edge=curl&imgtk=AFLRE73JfMXKZoT8woTJjKkU-_Sg0BY6Y74kZnnNo5827xEXQD9DUPptyNLYumHXjgO9W3wcAG9NucKqw1TRg2fyl2alD_uqsOrqj4kkMtspexKuo8QwXV90OTPHLNaENCYVm3KXv3MK&source=gbs_api"
+        className="w-40 h-60 m-auto shadow-md"
+        src={
+          thumbnail ||
+          smallThumbnail ||
+          POSTER_IMG_BASE_URL + key + POSTER_IMG_PARAMETERS
+        }
         alt="book"
       />
-      <div>
-        <h2 className="text-lg poppins-bold mt-2">Start With Why</h2>
-        <p className="text-gray-600 -mt-1 poppins-medium">Simon Sinek</p>
+      <div className="ml-3">
+        <h2 className="text-md poppins-bold mt-2">{title}</h2>
+        <p className="text-sm text-gray-600  poppins-medium">{allauthors}</p>
       </div>
     </div>
   );

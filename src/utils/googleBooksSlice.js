@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 const googleBooksSlice = createSlice({
   name: "books",
   initialState: {
-    firstBooks: null,
+    firstBooks: [],
     error: null,
   },
   reducers: {
     addFirstBooks: (state, action) => {
-      state.firstBooks = action.payload;
+      state.firstBooks = [...state.firstBooks, ...action.payload];
     },
     addError: (state, action) => {
       state.error = action.payload;
