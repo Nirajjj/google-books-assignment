@@ -6,7 +6,7 @@ import { addQueryValue } from "../utils/googleBooksSlice";
 const SearchBar = () => {
   const dispatch = useDispatch();
   const query = useSelector((store) => store.books?.queryValue);
-  useFirstBooksList(2023, query);
+  // useFirstBooksList(2023, query);
 
   const handleInputSearch = (e) => {
     let query = e.target.value;

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import BookCard from "./BookCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import BookListShimmerUi from "./BookListShimmerUi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useFirstBooksList from "../hooks/useFirstBooksList";
+import { addQueryValue } from "../utils/googleBooksSlice";
 
 const BookList = () => {
+  const dispatch = useDispatch();
   const booksState = useSelector((store) => store.books);
+  const error = useSelector((store) => store.books.error);
 
   const [year, setYear] = useState(2023);
   const [category, setCategory] = useState("subject:fiction");
@@ -19,6 +22,7 @@ const BookList = () => {
     : booksState.categoryBooks[parts[1]] || [];
 
   const handleSelect = (event) => {
+    dispatch(addQueryValue(null));
     setCategory(
       `subject:${event.target.value.replace(/ /g, "+").toLowerCase()}`
     );
@@ -32,6 +36,11 @@ const BookList = () => {
     <BookListShimmerUi />
   ) : (
     <div className="w-screen flex items-center flex-col gap-3">
+      {error && (
+        <div>
+          <h1>an error occurred: {error}</h1>
+        </div>
+      )}
       <div className="w-[80%] h-14 flex gap-4 mt-3">
         <select
           className="py-1 px-4 w-40 h-10 border-[1px] border-black rounded-md "
