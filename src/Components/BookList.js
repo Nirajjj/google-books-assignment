@@ -4,12 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import BookListShimmerUi from "./BookListShimmerUi";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useFirstBooksList from "../hooks/useFirstBooksList";
-import { addQueryValue } from "../utils/googleBooksSlice";
+import {
+  addOneBook,
+  addQueryValue,
+  toggleBookInfoState,
+} from "../utils/googleBooksSlice";
+import BookInfo from "./BookInfo";
 
 const BookList = () => {
   const dispatch = useDispatch();
   const booksState = useSelector((store) => store.books);
-  const error = useSelector((store) => store.books.error);
 
   const [year, setYear] = useState(2023);
   const [category, setCategory] = useState("subject:fiction");
@@ -31,16 +35,20 @@ const BookList = () => {
   const fetchMoreBooks = () => {
     setYear((prevYear) => prevYear - 1);
   };
-
+  const handleBookInfo = (book) => {
+    dispatch(toggleBookInfoState(true));
+    dispatch(addOneBook(book));
+  };
   return !booksToDisplay ? (
     <BookListShimmerUi />
   ) : (
-    <div className="w-screen flex items-center flex-col gap-3">
-      {error && (
+    <div className="w-screen flex items-center flex-col gap-3 ">
+      {booksState.error && (
         <div>
-          <h1>an error occurred: {error}</h1>
+          <h1>an error occurred: {booksState.error}</h1>
         </div>
       )}
+
       <div className="w-[80%] h-14 flex gap-4 mt-3">
         <select
           className="py-1 px-4 w-40 h-10 border-[1px] border-black rounded-md "
@@ -68,6 +76,7 @@ const BookList = () => {
         </select>
         <button></button>
       </div>
+      {booksState.bookInfoState && <BookInfo />}
       <InfiniteScroll
         dataLength={booksToDisplay?.length}
         next={fetchMoreBooks}
@@ -77,7 +86,14 @@ const BookList = () => {
         <div className="w-screen flex items-center flex-col">
           <div className="w-10/12 flex gap-4 flex-wrap justify-center">
             {booksToDisplay?.map((book) => {
-              return <BookCard key={book?.id + book?.etag} bookObj={book} />;
+              return (
+                <div
+                  key={book?.id + book?.etag}
+                  onClick={() => handleBookInfo(book)}
+                >
+                  <BookCard bookObj={book} />
+                </div>
+              );
             })}
           </div>
         </div>

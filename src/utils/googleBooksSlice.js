@@ -7,6 +7,8 @@ const googleBooksSlice = createSlice({
     error: null,
     queryBooks: {},
     queryValue: null,
+    bookInfoState: false,
+    oneBook: null,
   },
   reducers: {
     addFirstBooks: (state, action) => {
@@ -36,6 +38,12 @@ const googleBooksSlice = createSlice({
     addQueryValue: (state, action) => {
       state.queryValue = action.payload;
     },
+    toggleBookInfoState: (state, action) => {
+      state.bookInfoState = action.payload;
+    },
+    addOneBook: (state, action) => {
+      state.oneBook = action.payload;
+    },
   },
 });
 
@@ -43,8 +51,9 @@ export const {
   addFirstBooks,
   addError,
   addCategoryBooks,
-  toggleQuery,
   addQueryBooks,
   addQueryValue,
+  toggleBookInfoState,
+  addOneBook,
 } = googleBooksSlice.actions;
 export default googleBooksSlice.reducer;

@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const configureSlice = createSlice({
   name: "configure",
   initialState: {
-    category: null,
-    orderBy: null,
+    BookmarkBooks: [],
   },
   reducers: {
     addCategory: (state, action) => {
