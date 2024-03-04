@@ -5,6 +5,8 @@ const googleBooksSlice = createSlice({
   initialState: {
     categoryBooks: {},
     error: null,
+    queryBooks: {},
+    queryValue: null,
   },
   reducers: {
     addFirstBooks: (state, action) => {
@@ -24,9 +26,25 @@ const googleBooksSlice = createSlice({
         ...(books || []),
       ];
     },
+    addQueryBooks: (state, action) => {
+      const { query, books } = action.payload;
+      state.queryBooks[query] = [
+        ...(state.queryBooks[query] || []),
+        ...(books || []),
+      ];
+    },
+    addQueryValue: (state, action) => {
+      state.queryValue = action.payload;
+    },
   },
 });
 
-export const { addFirstBooks, addError, addCategoryBooks } =
-  googleBooksSlice.actions;
+export const {
+  addFirstBooks,
+  addError,
+  addCategoryBooks,
+  toggleQuery,
+  addQueryBooks,
+  addQueryValue,
+} = googleBooksSlice.actions;
 export default googleBooksSlice.reducer;

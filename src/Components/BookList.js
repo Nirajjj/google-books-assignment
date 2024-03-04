@@ -6,23 +6,20 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import useFirstBooksList from "../hooks/useFirstBooksList";
 
 const BookList = () => {
-  const BooksState = useSelector((store) => store.books);
-  // const categoryBook = useSelector((store) => store.books?.categoryBooks);
-  console.log(BooksState);
+  const booksState = useSelector((store) => store.books);
+
   const [year, setYear] = useState(2023);
   const [category, setCategory] = useState("subject:fiction");
-  const [orderBy, setOrderBy] = useState("orderBy:newest");
-  useFirstBooksList(year, category, orderBy);
+
+  useFirstBooksList(year, category);
   const parts = category.split(":");
 
-  const booksToDisplay = BooksState.categoryBooks[parts[1]] || [];
-  console.log(booksToDisplay);
+  const booksToDisplay = booksState.queryValue
+    ? booksState.queryBooks[booksState.queryValue]
+    : booksState.categoryBooks[parts[1]] || [];
 
   const handleSelect = (event) => {
     setCategory(
-      `subject:${event.target.value.replace(/ /g, "+").toLowerCase()}`
-    );
-    console.log(
       `subject:${event.target.value.replace(/ /g, "+").toLowerCase()}`
     );
   };
@@ -34,9 +31,13 @@ const BookList = () => {
   return !booksToDisplay ? (
     <BookListShimmerUi />
   ) : (
-    <div className="w-screen flex items-center flex-col">
-      <div className="w-10/12 h-14 flex gap-4">
-        <select defaultValue={"category"} onChange={handleSelect}>
+    <div className="w-screen flex items-center flex-col gap-3">
+      <div className="w-[80%] h-14 flex gap-4 mt-3">
+        <select
+          className="py-1 px-4 w-40 h-10 border-[1px] border-black rounded-md "
+          defaultValue={"category"}
+          onChange={handleSelect}
+        >
           <option disabled value={"category"}>
             Category
           </option>
@@ -48,7 +49,7 @@ const BookList = () => {
           <optgroup label="NON-FICTION" />
           <option>Business and Economics</option>
           <option>Cookbooks</option>
-          <option>Crafts and Hobbies</option>
+          <option>Art</option>
           <option>History</option>
           <option>Health and wellness</option>
           <option>Religion and Spirituality</option>
@@ -56,6 +57,7 @@ const BookList = () => {
           <option>Self-Help</option>
           <option>Travel</option>
         </select>
+        <button></button>
       </div>
       <InfiniteScroll
         dataLength={booksToDisplay?.length}

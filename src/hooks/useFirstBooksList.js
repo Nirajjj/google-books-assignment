@@ -1,35 +1,38 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { API_KEY, BASE_API, QUERY_PARAMETERS } from "../utils/constants";
 import {
   addCategoryBooks,
   addError,
   addFirstBooks,
+  addQueryBooks,
 } from "../utils/googleBooksSlice";
 
-const useFirstBooksList = (year, category, orderBy) => {
-  // const books = useSelector((store) => store.books.firstBooks);
+const useFirstBooksList = (year, category) => {
+  const queryStatus = useSelector((store) => store.books.queryValue);
+  const query = queryStatus ? queryStatus : category;
   const dispatch = useDispatch();
   useEffect(() => {
     books();
-  }, [year, category]);
+  }, [year, query]);
 
   const books = async () => {
     try {
       const booksData = await fetch(
-        // https://www.googleapis.com/books/v1/volumes?q=subject:CATEGORY&orderBy=newest&key=YOUR_API_KEY
-        BASE_API + `${category}+${year}&${orderBy}` + QUERY_PARAMETERS + API_KEY
+        BASE_API + `${query}+${year}` + QUERY_PARAMETERS + API_KEY
       );
-      console.log(booksData);
+
       if (!booksData.ok) {
         dispatch(addError(`API ERROR: ${booksData.error}`));
         return;
       }
       const jsonData = await booksData.json();
-      console.log(jsonData.items);
+
       const parts = category.split(":");
-      if (parts[1] === "fiction") {
+      if (parts[1] === "fiction" && !queryStatus) {
         dispatch(addFirstBooks(jsonData?.items));
+      } else if (queryStatus) {
+        dispatch(addQueryBooks({ query, books: jsonData?.items }));
       } else {
         dispatch(
           addCategoryBooks({ category: parts[1], books: jsonData?.items })
