@@ -22,7 +22,7 @@ const SearchBar = () => {
         <input
           className="px-2 py-2 border border-black rounded-md col-span-9"
           type="text"
-          placeholder="What you will read today"
+          placeholder="Find your next great read"
           onChange={handleInputSearch}
         />
         <button
