@@ -5,15 +5,8 @@ const configureSlice = createSlice({
   initialState: {
     BookmarkBooks: [],
   },
-  reducers: {
-    addCategory: (state, action) => {
-      state.category = action.payload;
-    },
-    addOrderBy: (state, action) => {
-      state.orderBy = action.payload;
-    },
-  },
+  reducers: {},
 });
 
-export const { addCategory, addOrderBy } = configureSlice.actions;
+export const {} = configureSlice.actions;
 export default configureSlice.reducer;

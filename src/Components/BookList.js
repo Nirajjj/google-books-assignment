@@ -51,7 +51,7 @@ const BookList = () => {
 
       <div className="w-[80%] h-14 flex gap-4 mt-3">
         <select
-          className="py-1 px-4 w-40 h-10 border-[1px] border-black rounded-md "
+          className="py-1 px-4 w-40 h-10 border-[1px] border-black rounded-md cursor-pointer"
           defaultValue={"category"}
           onChange={handleSelect}
         >
@@ -88,6 +88,7 @@ const BookList = () => {
             {booksToDisplay?.map((book) => {
               return (
                 <div
+                  className="cursor-pointer"
                   key={book?.id + book?.etag}
                   onClick={() => handleBookInfo(book)}
                 >

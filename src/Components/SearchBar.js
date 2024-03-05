@@ -26,7 +26,7 @@ const SearchBar = () => {
           onChange={handleInputSearch}
         />
         <button
-          className="border border-black col-span-3 rounded-md px-3"
+          className="border border-black col-span-3 rounded-md px-3 cursor-pointer"
           type="submit"
         >
           Search
