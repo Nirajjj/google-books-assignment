@@ -21,13 +21,18 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-screen">
+    <div className="w-screen relative">
+      <img
+        className="w-28 absolute -top-6 left-10 -z-20"
+        src="pageSage.png"
+        alt="book-logo"
+      />
       <form
         className="mx-auto w-6/12 my-2 grid grid-cols-12 gap-2"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
-          className="px-2 py-2 border border-black rounded-md col-span-8"
+          className="px-2 py-2 border border-black rounded-md col-span-8 "
           type="text"
           placeholder="Find your next great read"
           onChange={handleInputSearch}
