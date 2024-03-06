@@ -16,7 +16,7 @@ const BookList = () => {
   const booksState = useSelector((store) => store.books);
 
   const [year, setYear] = useState(2023);
-  const [category, setCategory] = useState("subject:fiction");
+  const [category, setCategory] = useState("subject:nonfiction");
 
   useFirstBooksList(year, category);
   const parts = category.split(":");

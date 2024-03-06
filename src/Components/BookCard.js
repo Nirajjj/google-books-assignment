@@ -21,7 +21,9 @@ const BookCard = ({ bookObj }) => {
       />
       <div className="ml-3">
         <h2 className="text-md poppins-bold mt-2 truncate">{title}</h2>
-        <p className="text-sm text-gray-600  poppins-medium">{allauthors}</p>
+        <p className="text-sm text-gray-600  poppins-medium truncate">
+          {allauthors}
+        </p>
       </div>
     </div>
   );

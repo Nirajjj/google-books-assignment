@@ -1,26 +1,33 @@
-import React from "react";
-import useFirstBooksList from "../hooks/useFirstBooksList";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addQueryValue } from "../utils/googleBooksSlice";
+import { CiBookmark } from "react-icons/ci";
+import { Link } from "react-router-dom";
+import { GiBlackBook } from "react-icons/gi";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-  const query = useSelector((store) => store.books?.queryValue);
+  const bookmarkBooks = useSelector((store) => store.books?.bookmarkBooks);
+  const bookmarkCount = bookmarkBooks.length;
+  const [toggleRoutes, setToggleRoutes] = useState(false);
   // useFirstBooksList(2023, query);
 
   const handleInputSearch = (e) => {
     let query = e.target.value;
     dispatch(addQueryValue(query));
   };
+  const handleRoutes = () => {
+    setToggleRoutes(!toggleRoutes);
+  };
 
   return (
     <div className="w-screen">
       <form
-        className="mx-auto w-5/12 my-2 grid grid-cols-12 gap-2"
+        className="mx-auto w-6/12 my-2 grid grid-cols-12 gap-2"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
-          className="px-2 py-2 border border-black rounded-md col-span-9"
+          className="px-2 py-2 border border-black rounded-md col-span-8"
           type="text"
           placeholder="Find your next great read"
           onChange={handleInputSearch}
@@ -31,6 +38,27 @@ const SearchBar = () => {
         >
           Search
         </button>
+
+        {!toggleRoutes ? (
+          <Link to={"/bookmark"}>
+            <div
+              className="w-full h-full col-span-1 flex justify-center items-center rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer relative"
+              onClick={handleRoutes}
+            >
+              <CiBookmark className="text-4xl" />
+              <div className="absolute text-sm top-">{bookmarkCount}</div>
+            </div>
+          </Link>
+        ) : (
+          <Link to={"/"}>
+            <div
+              className="col-span-1 flex justify-center items-center rounded-full bg-slate-200 hover:bg-slate-300 cursor-pointer"
+              onClick={handleRoutes}
+            >
+              <GiBlackBook className="text-4xl" />
+            </div>
+          </Link>
+        )}
       </form>
     </div>
   );

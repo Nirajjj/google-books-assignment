@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleBookInfoState } from "../utils/googleBooksSlice";
+import {
+  addBookMarkBook,
+  addBookMarkBooks,
+  toggleBookInfoState,
+} from "../utils/googleBooksSlice";
 import { MdBookmarkBorder } from "react-icons/md";
 import { MdBookmarkRemove } from "react-icons/md";
 
 const BookInfo = () => {
   const dispatch = useDispatch();
   const book = useSelector((store) => store.books.oneBook);
+  const bookmarkBooks = useSelector((store) => store.books.bookmarkBooks);
   const [bookMark, setBookMark] = useState(false);
 
+  //  const index = state.bookmarkBooks[action.payload];
+  // if (index !== -1) {
+  //   state.bookmarkBooks = state.bookmarkBooks.slice(index, 1);
+  // } else {
+  //   state.bookmarkBooks = [...state.bookmarkBooks, ...action.payload];
+
+  // }
   const {
     title,
     subtitle,
@@ -24,9 +36,23 @@ const BookInfo = () => {
   const handleBookInfo = () => {
     dispatch(toggleBookInfoState(null));
   };
+
   const handlebookMark = () => {
-    setBookMark(!bookMark);
+    dispatch(addBookMarkBooks(book));
+
+    // setBookMark(!bookMark);
   };
+
+  const index = bookmarkBooks.findIndex(
+    (bookmarkBook) => bookmarkBook.id === book.id
+  );
+  console.log(index);
+  const status = index !== -1 ? true : false;
+
+  useEffect(() => {
+    setBookMark(status);
+  }, [status]);
+
   const handleInnerDiv = (event) => {
     event.stopPropagation();
   };
@@ -49,15 +75,15 @@ const BookInfo = () => {
               <h1 className="text-lg font-bold">{title}</h1>
               <h1 className="text-sm">{subtitle}</h1>
             </div>
-            <div className="flex justify-center">
-              {bookMark ? (
+            <div className="flex justify-center ">
+              {!bookMark ? (
                 <MdBookmarkBorder
-                  className=" text-xl"
+                  className=" text-xl "
                   onClick={handlebookMark}
                 />
               ) : (
                 <MdBookmarkRemove
-                  className=" text-xl"
+                  className=" text-xl "
                   onClick={handlebookMark}
                 />
               )}

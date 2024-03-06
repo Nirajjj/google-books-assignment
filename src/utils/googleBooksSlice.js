@@ -9,6 +9,7 @@ const googleBooksSlice = createSlice({
     queryValue: null,
     bookInfoState: false,
     oneBook: null,
+    bookmarkBooks: [],
   },
   reducers: {
     addFirstBooks: (state, action) => {
@@ -44,6 +45,19 @@ const googleBooksSlice = createSlice({
     addOneBook: (state, action) => {
       state.oneBook = action.payload;
     },
+    addBookMarkBooks: (state, action) => {
+      const existingindex = state.bookmarkBooks.findIndex(
+        (book) => book.id === action.payload.id
+      );
+      if (existingindex !== -1) {
+        state.bookmarkBooks = state.bookmarkBooks.filter(
+          (book, index) => index !== existingindex
+        );
+      } else {
+        state.bookmarkBooks = [...(state.bookmarkBooks || []), action.payload];
+      }
+      // state.bookmarkBooks = action.payload;
+    },
   },
 });
 
@@ -55,5 +69,6 @@ export const {
   addQueryValue,
   toggleBookInfoState,
   addOneBook,
+  addBookMarkBooks,
 } = googleBooksSlice.actions;
 export default googleBooksSlice.reducer;
