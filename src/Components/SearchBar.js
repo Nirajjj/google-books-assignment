@@ -23,7 +23,7 @@ const SearchBar = () => {
   return (
     <div className="w-full relative">
       <img
-        className="w-20 md:w-28  absolute -top-6 left-10 mdMax:left-0 mdMax:-top-16 mdMax:right-0 mdMax:mx-auto -z-20"
+        className="w-24 md:w-28  absolute -top-5 left-10 mdMax:left-0 mdMax:-top-16 mdMax:right-0 mdMax:mx-auto -z-20"
         src="pageSage.png"
         alt="book-logo"
       />
