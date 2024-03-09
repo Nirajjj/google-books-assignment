@@ -13,10 +13,14 @@ const useFirstBooksList = (year, category) => {
   const query = queryStatus ? queryStatus : category;
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log("useeffect of custome hook called");
     books();
   }, [year, query]);
+  console.log("custome hook called");
 
   const books = async () => {
+    console.log("books function in custome hook called");
+
     try {
       const booksData = await fetch(
         BASE_API + `${query}+${year}` + QUERY_PARAMETERS + API_KEY
@@ -46,3 +50,19 @@ const useFirstBooksList = (year, category) => {
 };
 
 export default useFirstBooksList;
+// book data fetch
+// null;
+// booklist befor custome hook called
+// custome hook called
+// booklist after custome hook called
+// shimmer render in booklist called
+// booklist render
+// useeffect of custome hook called
+// books function in custome hook called
+// books data fetch
+// data
+// custome hook called
+// booklist befor custome hook called
+// custome hook called
+// booklist after custome hook called
+// booklist render

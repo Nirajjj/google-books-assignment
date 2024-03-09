@@ -16,7 +16,7 @@ const BookmarkBooks = () => {
     <div>
       {booksState && <BookInfo />}
 
-      <div className="w-screen flex items-center flex-col">
+      <div className="w-full flex items-center flex-col">
         <div className="w-10/12 flex gap-4 flex-wrap justify-center">
           {bookmarkBooks?.map((book) => {
             return (

@@ -21,14 +21,14 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="w-screen relative">
+    <div className="w-full relative">
       <img
-        className="w-28 absolute -top-6 left-10 -z-20"
+        className="w-20 md:w-28  absolute -top-6 left-10 mdMax:left-0 mdMax:-top-16 mdMax:right-0 mdMax:mx-auto -z-20"
         src="pageSage.png"
         alt="book-logo"
       />
       <form
-        className="mx-auto w-6/12 my-2 grid grid-cols-12 gap-2"
+        className="mdMax:mx-0 mx-auto w-6/12  my-2 grid grid-cols-12 gap-2 mdMax:mt-12 mdMax:flex mdMax:px-2 mdMax:justify-center mdMax:w-full"
         onSubmit={(e) => e.preventDefault()}
       >
         <input

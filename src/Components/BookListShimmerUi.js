@@ -2,7 +2,7 @@ import React from "react";
 
 const BookListShimmerUi = () => {
   return (
-    <div className="w-screen flex items-center flex-col">
+    <div className="w-full flex items-center flex-col">
       <div className="relative  w-10/12 flex gap-4  flex-wrap justify-center mt-4">
         {Array(15)
           .fill()

@@ -59,7 +59,7 @@ const BookInfo = () => {
 
   return (
     <div
-      className="fixed w-screen h-screen backdrop-blur-sm flex justify-center top-0 z-50 "
+      className="fixed w-full h-screen backdrop-blur-sm flex justify-center top-0 z-50 "
       onClick={handleBookInfo}
     >
       <div
